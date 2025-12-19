@@ -4,33 +4,32 @@
  * @return {number}
  */
 var compress = function(chars) {
-    let writeIdx = 0; // Pointer for writing compressed characters
-    let readIdx = 0;  // Pointer for reading original characters
+    let write = 0; // Pointer for writing compressed characters
+    let read = 0;  // Pointer for reading original characters
 
-    while (readIdx < chars.length) {
-        let currentChar = chars[readIdx];
+    while (read < chars.length) {
+        const currentChar = chars[read];
         let count = 0;
 
         // Count consecutive occurrences of currentChar
-        while (readIdx < chars.length && chars[readIdx] === currentChar) {
+        while (read < chars.length && chars[read] === currentChar) {
+            read++;
             count++;
-            readIdx++;
         }
 
         // Write the character
-        chars[writeIdx] = currentChar;
-        writeIdx++;
+        chars[write] = currentChar;
+        write++;
 
         // If count is greater than 1, write the count
         if (count > 1) {
-            // Convert count to string and write each digit
             const countStr = count.toString();
             for (let i = 0; i < countStr.length; i++) {
-                chars[writeIdx] = countStr[i];
-                writeIdx++;
+                chars[write] = countStr[i];
+                write++;
             }
         }
     }
 
-    return writeIdx;
+    return write; // The new length of the array
 };
