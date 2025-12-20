@@ -5,29 +5,28 @@
  * @return {boolean}
  */
 var canPlaceFlowers = function(flowerbed, n) {
-    if (n === 0) {
-        return true;
-    }
+    let flowersPlanted = 0;
+    const len = flowerbed.length;
 
-    for (let i = 0; i < flowerbed.length; i++) {
-        // If the current plot is empty (0)
+    for (let i = 0; i < len; i++) {
+        // If current plot is empty
         if (flowerbed[i] === 0) {
-            // Check if the plot to the left is empty or if it's the first plot
-            const isLeftEmpty = (i === 0 || flowerbed[i - 1] === 0);
-            // Check if the plot to the right is empty or if it's the last plot
-            const isRightEmpty = (i === flowerbed.length - 1 || flowerbed[i + 1] === 0);
+            // Check left neighbor: true if it's the first plot or the left neighbor is empty
+            const leftEmpty = (i === 0 || flowerbed[i - 1] === 0);
+            // Check right neighbor: true if it's the last plot or the right neighbor is empty
+            const rightEmpty = (i === len - 1 || flowerbed[i + 1] === 0);
 
-            // If both the current plot and its neighbors are empty, we can plant a flower
-            if (isLeftEmpty && isRightEmpty) {
-                flowerbed[i] = 1; // Plant the flower
-                n--; // Decrement the number of flowers remaining to be planted
-                if (n === 0) {
-                    return true; // All required flowers have been planted
+            // If both neighbors are empty (or out of bounds), we can plant a flower
+            if (leftEmpty && rightEmpty) {
+                flowerbed[i] = 1; // Plant a flower (mark as occupied)
+                flowersPlanted++;
+                if (flowersPlanted >= n) {
+                    return true; // We've planted enough flowers, no need to continue
                 }
             }
         }
     }
 
-    // If the loop finishes and n is not 0, it means we couldn't plant all flowers
-    return false;
+    // After iterating through the entire flowerbed, return true if we've planted 'n' or more flowers
+    return flowersPlanted >= n;
 };
