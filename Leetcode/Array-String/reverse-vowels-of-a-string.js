@@ -10,7 +10,13 @@ var reverseVowels = function(s) {
 
     const isVowel = (char) => {
         const lowerChar = char.toLowerCase();
-        return lowerChar === 'a' || lowerChar === 'e' || lowerChar === 'i' || lowerChar === 'o' || lowerChar === 'u';
+        return (
+            lowerChar === 'a' ||
+            lowerChar === 'e' ||
+            lowerChar === 'i' ||
+            lowerChar === 'o' ||
+            lowerChar === 'u'
+        );
     };
 
     while (left < right) {
