@@ -5,16 +5,17 @@
  * @return {boolean}
  */
 var isSubsequence = function(s, t) {
-    let i = 0; // Pointer for string s
-    let j = 0; // Pointer for string t
+    let sPointer = 0;
+    let tPointer = 0;
 
-    while (i < s.length && j < t.length) {
-        if (s[i] === t[j]) {
-            i++; // Move s pointer only if a match is found
+    while (sPointer < s.length && tPointer < t.length) {
+        if (s[sPointer] === t[tPointer]) {
+            sPointer++;
         }
-        j++; // Always move t pointer
+        tPointer++;
     }
 
-    // If i has reached the end of s, it means all characters of s were found in t in order
-    return i === s.length;
+    // If sPointer has reached the end of s, it means all characters of s
+    // were found in t in the correct order.
+    return sPointer === s.length;
 };
