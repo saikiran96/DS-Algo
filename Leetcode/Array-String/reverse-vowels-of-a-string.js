@@ -5,22 +5,24 @@
  */
 var reverseVowels = function(s) {
     const chars = s.split('');
-    const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
-
     let left = 0;
     let right = chars.length - 1;
 
+    const isVowel = (char) => {
+        const lowerChar = char.toLowerCase();
+        return lowerChar === 'a' || lowerChar === 'e' || lowerChar === 'i' || lowerChar === 'o' || lowerChar === 'u';
+    };
+
     while (left < right) {
-        while (left < right && !vowels.has(chars[left])) {
+        while (left < right && !isVowel(chars[left])) {
             left++;
         }
-        while (left < right && !vowels.has(chars[right])) {
+        while (left < right && !isVowel(chars[right])) {
             right--;
         }
 
-        // If both pointers found vowels and haven't crossed
         if (left < right) {
-            // Swap
+            // Swap characters
             [chars[left], chars[right]] = [chars[right], chars[left]];
             left++;
             right--;
