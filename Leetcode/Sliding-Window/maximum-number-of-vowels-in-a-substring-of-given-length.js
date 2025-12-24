@@ -6,27 +6,26 @@
  */
 var maxVowels = function(s, k) {
     const vowels = new Set(['a', 'e', 'i', 'o', 'u']);
-    let currentVowels = 0;
-
-    const isVowel = (char) => vowels.has(char);
+    let currentVowelCount = 0;
+    let maxVowelCount = 0;
 
     for (let i = 0; i < k; i++) {
-        if (isVowel(s[i])) {
-            currentVowels++;
+        if (vowels.has(s[i])) {
+            currentVowelCount++;
         }
     }
 
-    let maxVowels = currentVowels;
+    maxVowelCount = currentVowelCount;
 
     for (let i = k; i < s.length; i++) {
-        if (isVowel(s[i - k])) {
-            currentVowels--;
+        if (vowels.has(s[i])) {
+            currentVowelCount++;
         }
-        if (isVowel(s[i])) {
-            currentVowels++;
+        if (vowels.has(s[i - k])) {
+            currentVowelCount--;
         }
-        maxVowels = Math.max(maxVowels, currentVowels);
+        maxVowelCount = Math.max(maxVowelCount, currentVowelCount);
     }
 
-    return maxVowels;
+    return maxVowelCount;
 };
