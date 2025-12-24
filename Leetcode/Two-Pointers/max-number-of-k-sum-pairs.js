@@ -5,19 +5,21 @@
  * @return {number}
  */
 var maxOperations = function(nums, k) {
+    const freqMap = new Map();
     let operations = 0;
-    const counts = new Map();
 
     for (const num of nums) {
         const complement = k - num;
-        if (counts.has(complement) && counts.get(complement) > 0) {
-            // Found a pair!
+        
+        // If the complement exists in the map and its count is greater than 0,
+        // it means we found a pair.
+        if (freqMap.has(complement) && freqMap.get(complement) > 0) {
             operations++;
-            counts.set(complement, counts.get(complement) - 1);
+            freqMap.set(complement, freqMap.get(complement) - 1); // "Use" the complement
         } else {
-            // No complement found, or complement count is 0.
-            // Store or increment the current number's count.
-            counts.set(num, (counts.get(num) || 0) + 1);
+            // Otherwise, store the current number in the map,
+            // or increment its count if it's already there.
+            freqMap.set(num, (freqMap.get(num) || 0) + 1);
         }
     }
 
